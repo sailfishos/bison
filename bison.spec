@@ -1,10 +1,10 @@
 Summary: A GNU general-purpose parser generator
 Name: bison
-Version: 2.5
+Version: 2.7
 Release: 1
 License: GPLv3
 Group: Development/Tools
-Source: ftp://ftp.gnu.org/pub/gnu/bison/bison-%{version}.tar.bz2
+Source: ftp://ftp.gnu.org/pub/gnu/bison/bison-%{version}.tar.xz
 URL: http://www.gnu.org/software/bison/
 BuildRoot: %{_tmppath}/%{name}-root
 BuildRequires: m4 >= 1.4 
@@ -68,7 +68,6 @@ make
 
 %check
 make check
-#make maintainer-check
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -96,7 +95,7 @@ fi
 # when the target parser file is generated.
 %files -f %{name}.lang
 %defattr(-,root,root)
-%doc AUTHORS ChangeLog NEWS OChangeLog README THANKS TODO
+%doc AUTHORS ChangeLog NEWS ChangeLog README THANKS TODO
 %{_mandir}/*/bison*
 %{_datadir}/bison
 %{_infodir}/bison.info*
@@ -108,7 +107,4 @@ fi
 %files devel
 %defattr(-,root,root)
 %{_libdir}/liby.a
-
-%clean
-rm -rf $RPM_BUILD_ROOT
 
