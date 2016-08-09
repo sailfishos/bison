@@ -1,13 +1,21 @@
 Summary: A GNU general-purpose parser generator
 Name: bison
-Version: 2.7
+# Remember to run, update-po.sh when updating to get
+# latest translations.
+Version: 3.0.4
 Release: 1
-License: GPLv3
+License: GPLv3+
 Group: Development/Tools
 Source: ftp://ftp.gnu.org/pub/gnu/bison/bison-%{version}.tar.xz
 URL: http://www.gnu.org/software/bison/
-BuildRoot: %{_tmppath}/%{name}-root
 BuildRequires: m4 >= 1.4 
+BuildRequires: help2man
+# autopoint required during build.
+BuildRequires: gettext-devel
+# flex required for build
+BuildRequires: flex
+# makeinfo required for build
+BuildRequires: texinfo
 Requires: m4 >= 1.4
 Requires(post): /sbin/install-info
 Requires(preun): /sbin/install-info
@@ -60,9 +68,15 @@ these files are available.  See the Internationalization in the
 Bison manual section for more information.
 
 %prep
-%setup -q
+%setup -q -n %{name}-%{version}/%{name}
 
 %build
+rm -rf submodules/autoconf
+ln -s ../../autoconf submodules/autoconf
+echo %{version} | cut -d '+' -f 1 > .tarball-version
+cp .tarball-version .version
+
+./bootstrap --skip-po --no-git --no-bootstrap-sync --gnulib-srcdir=../gnulib/
 %configure
 make
 
@@ -77,9 +91,10 @@ rm -rf $RPM_BUILD_ROOT
 rm -f $RPM_BUILD_ROOT/%{_bindir}/yacc
 rm -f $RPM_BUILD_ROOT/%{_infodir}/dir
 rm -f $RPM_BUILD_ROOT/%{_mandir}/man1/yacc*
-
-%find_lang %{name}
-%find_lang %{name}-runtime
+rm -f $RPM_BUILD_ROOT/%{_docdir}/%{name}/examples/calc++/*
+rm -f $RPM_BUILD_ROOT/%{_docdir}/%{name}/examples/mfcalc/*
+rm -f $RPM_BUILD_ROOT/%{_docdir}/%{name}/examples/rpcalc/*
+rm -f $RPM_BUILD_ROOT/%{_docdir}/%{name}/{AUTHORS,COPYING,NEWS,README,THANKS,TODO}
 
 gzip -9nf ${RPM_BUILD_ROOT}%{_infodir}/bison.info*
 
@@ -93,18 +108,20 @@ fi
 
 # The distribution contains also source files.  These are used by m4
 # when the target parser file is generated.
-%files -f %{name}.lang
+%files
 %defattr(-,root,root)
-%doc AUTHORS ChangeLog NEWS ChangeLog README THANKS TODO
+%doc AUTHORS ChangeLog NEWS README THANKS TODO COPYING
 %{_mandir}/*/bison*
 %{_datadir}/bison
 %{_infodir}/bison.info*
 %{_bindir}/bison
 %{_datadir}/aclocal/bison*.m4
 
-%files -f %{name}-runtime.lang runtime
+%files runtime
+%doc COPYING
 
 %files devel
+%doc COPYING
 %defattr(-,root,root)
 %{_libdir}/liby.a
 
