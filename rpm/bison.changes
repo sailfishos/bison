@@ -9,7 +9,7 @@
 - Update to 2.4.3
 - Drop the patch for testcase 81, it works fine now.
 
-* Tur Jul 1 2010 Austin Zhang <austin.zhang@intel.com> 2.4.2
+* Tue Jul 1 2010 Austin Zhang <austin.zhang@intel.com> 2.4.2
 - Update to 2.4.2
 - Workaround failed testcase 81 with new compiler, which is proven 
   bison test case issue.
