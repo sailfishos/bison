@@ -2,7 +2,7 @@ Summary: A GNU general-purpose parser generator
 Name: bison
 # Remember to run, update-po.sh when updating to get
 # latest translations.
-Version: 3.0.4
+Version: 3.3.2
 Release: 1
 License: GPLv3+
 Group: Development/Tools
@@ -91,9 +91,7 @@ rm -rf $RPM_BUILD_ROOT
 rm -f $RPM_BUILD_ROOT/%{_bindir}/yacc
 rm -f $RPM_BUILD_ROOT/%{_infodir}/dir
 rm -f $RPM_BUILD_ROOT/%{_mandir}/man1/yacc*
-rm -f $RPM_BUILD_ROOT/%{_docdir}/%{name}/examples/calc++/*
-rm -f $RPM_BUILD_ROOT/%{_docdir}/%{name}/examples/mfcalc/*
-rm -f $RPM_BUILD_ROOT/%{_docdir}/%{name}/examples/rpcalc/*
+rm -rf $RPM_BUILD_ROOT/%{_docdir}/%{name}/examples/*
 rm -f $RPM_BUILD_ROOT/%{_docdir}/%{name}/{AUTHORS,COPYING,NEWS,README,THANKS,TODO}
 
 gzip -9nf ${RPM_BUILD_ROOT}%{_infodir}/bison.info*
