@@ -1,9 +1,9 @@
 [submodule "bison"]
 	path = bison
-	url = https://git.merproject.org/mirror/bison.git
+	url = https://github.com/sailfishos-mirror/bison.git
 [submodule "gnulib"]
 	path = gnulib
-	url = https://git.merproject.org/mirror/gnulib.git
+	url = https://github.com/sailfishos-mirror/gnulib.git
 [submodule "autoconf"]
 	path = autoconf
-	url = https://git.merproject.org/mirror/autoconf.git
+	url = https://github.com/sailfishos-mirror/autoconf.git
