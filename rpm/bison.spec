@@ -3,10 +3,9 @@ Name: bison
 Version: 3.8.2
 Release: 1
 License: GPLv3+
-Source: ftp://ftp.gnu.org/pub/gnu/bison/bison-%{version}.tar.xz
+Source: %{name}-%{version}.tar.xz
 URL: https://github.com/sailfishos/bison
 BuildRequires: m4 >= 1.4 
-BuildRequires: help2man
 # autopoint required during build.
 BuildRequires: gettext-devel
 BuildRequires: flex
@@ -51,7 +50,7 @@ simple programs to supply minimal support for the generated parsers.
 # sources, and only bison-devel would be necessary to wrap the build.
 
 %prep
-%setup -q -n %{name}-%{version}/%{name}
+%autosetup -p1 -n %{name}-%{version}/%{name}
 
 %build
 rm -rf submodules/autoconf
@@ -67,26 +66,23 @@ ln -s ../../gnulib/build-aux/move-if-change build-aux/move-if-change
 %make_build
 
 %install
-%makeinstall
+%make_install
 
 # Remove unpackaged files.
 rm -f $RPM_BUILD_ROOT/%{_bindir}/yacc
 rm -rf $RPM_BUILD_ROOT/%{_infodir}
-rm -f $RPM_BUILD_ROOT/%{_mandir}/man1/yacc*
+rm -rf $RPM_BUILD_ROOT/%{_mandir}
 rm -rf $RPM_BUILD_ROOT/%{_docdir}/%{name}/examples/*
 rm -f $RPM_BUILD_ROOT/%{_docdir}/%{name}/{AUTHORS,COPYING,NEWS,README,THANKS,TODO}
 
 # The distribution contains also source files.  These are used by m4
 # when the target parser file is generated.
 %files
-%defattr(-,root,root)
 %license COPYING
-%{_mandir}/*/bison*
 %{_datadir}/bison
 %{_bindir}/bison
 %{_datadir}/aclocal/bison*.m4
 
 %files devel
 %license COPYING
-%defattr(-,root,root)
 %{_libdir}/liby.a
